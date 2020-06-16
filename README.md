@@ -1,6 +1,6 @@
-* Fighting game project
+# Fighting game project
 
-** Description
+## Description
 
 This is a small project made by a group of friends to practice and improve our skills.
 
@@ -12,9 +12,9 @@ Software used will be:
 
 + Photoshop
 
-** Controls and use
+## Controls and use
 
-** Development team
+## Development team
 
 + Albert Arqués - Programming - GitHub: (pray4albert)[https://github.com/pray4albert]
 
@@ -30,6 +30,6 @@ Software used will be:
 
 + Liam Viladiu - Art
 
-** Changelog
+## Changelog
 
-** License
+## License
