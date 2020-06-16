@@ -16,6 +16,20 @@ Software used will be:
 
 ** Development team
 
++ Albert Arqués - Programming - GitHub: (pray4albert)[https://github.com/pray4albert]
+
++ Noé Carmona - "Designer"
+
++ Sergi Lozano - Programming - GitHub: (Serfin01)[https://github.com/Serfin01]
+
++ Pau Pedra - Programming - GitHub: (paupedra)[https://github.com/paupedra]
+
++ Fausto Romano - Art
+
++ Joel Viladiu - Art
+
++ Liam Viladiu - Art
+
 ** Changelog
 
 ** License
