@@ -7,6 +7,20 @@ public class MovementChar : MonoBehaviour
     public CharController controller;
     public Animator animator;
 
+    enum StateMachine
+    {
+        IDLE = 0,
+        JUMPING,
+        CROUCHING,
+        PUCHING,
+        HURT
+    }
+
+    StateMachine state = StateMachine.IDLE;
+
+    //FrameRate vars
+    
+
     public float runSpeed = 0f;
     float horizontalMove = 0f;
     bool jump = false;
@@ -17,18 +31,42 @@ public class MovementChar : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
+        UpdateAnimations(); //Animator variables
 
-        UpdateAnimations();
+        //switch(state)
+        //{
+        //    case StateMachine.IDLE:
+        //        break;
+
+        //    case StateMachine.JUMPING:
+        //        break;
+
+        //    case StateMachine.CROUCHING:
+        //        break;
+
+        //    case StateMachine.PUCHING:
+        //        break;
+
+        //    case StateMachine.HURT:
+        //        break;
+        //}
 
         if (Input.GetButtonDown("Jump"))
         {
-            jump = true;
+            state = StateMachine.JUMPING;
         }
+
 
         if (Input.GetAxisRaw("Vertical") < 0) //Input.GetButtonDown("Down")
         {
             crouch = true;
         }
+
+        if(Input.GetButtonDown("Punch"))
+        {
+
+        }
+
     }
 
     void FixedUpdate()
@@ -40,8 +78,12 @@ public class MovementChar : MonoBehaviour
 
     void UpdateAnimations()
     {
+        //Brakeys stuff
         animator.SetFloat("speed", Mathf.Abs(horizontalMove));
         animator.SetFloat("velocityY", rigidbody2D.velocity.y);
-        animator.SetBool("isGrounded", controller.m_Grounded);
+        animator.SetBool("isGrounded", controller.grounded);
+
+        //Increse frame 
+
     }
 }
