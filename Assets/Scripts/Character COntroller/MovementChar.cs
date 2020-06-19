@@ -53,7 +53,8 @@ public class MovementChar : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            state = StateMachine.JUMPING;
+            //state = StateMachine.JUMPING;
+            jump = true;
         }
 
 
