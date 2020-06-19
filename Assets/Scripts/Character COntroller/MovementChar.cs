@@ -15,23 +15,21 @@ public class MovementChar : MonoBehaviour
     const float groundedRadius = .1f;                                        // Radius of the overlap circle to determine if grounded
     public bool grounded = false;                                            // Whether or not the player is grounded.
     bool wasGrounded = false;
-    
-    const float ceilingRadius = .2f;                                         // Radius of the overlap circle to determine if the player can stand up
+
+    //Landing
+    float landingTimer = 0f;
+    bool landing = false;
 
     public Animator animator;
 
+    //Movement vars
     [SerializeField] private float jumpVelocity = 7;                          // Amount of force added when the player jumps.
     [Range(0, 1)] [SerializeField] private float crouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;  // How much to smooth out the movement
-    [SerializeField] private bool airControl = false;                         // Whether or not a player can steer while jumping;
     
     [SerializeField] private Collider2D standingCollider;                // A collider that will be disabled when crouching
    
     private bool facingRight = true;  // For determining which way the player is currently facing.
-    private Vector3 velocity = Vector3.zero;
-
-   // [Space]
-
     private bool wasCrouching = false;
 
     private void Awake()
@@ -64,26 +62,19 @@ public class MovementChar : MonoBehaviour
     {
         GroundedCheck(); //Check if character is grounded
 
-        horizontalMove = Input.GetAxis("Horizontal") * runSpeed;
-
-        //Animator variables
-
         switch (state)
         {
             case StateMachine.IDLE:
 
-                 if(Input.GetButtonDown("Jump") && grounded) //Starts jump, break from switch
-                 {
+                if (Input.GetButtonDown("Jump") && grounded) //Starts jump, break from switch
+                {
                     state = StateMachine.JUMPING;
                     StartJump();
-
-                    break;
-                 }
-
-                 if(Input.GetAxisRaw("Horizontal") != 0) //If no other input has been recieved run
-                 {
-                    state = StateMachine.RUNNING;
-                 }
+                }
+                else if (Input.GetAxisRaw("Horizontal") != 0) //If no other input has been recieved run
+                {
+                   state = StateMachine.RUNNING;
+                }
 
                 break;
 
@@ -95,11 +86,8 @@ public class MovementChar : MonoBehaviour
                 {
                     state = StateMachine.JUMPING;
                     StartJump();
-
-                    break;
                 }
-
-                if (Input.GetAxisRaw("Horizontal") == 0) //If no other input has been recieved run
+                else if (Input.GetAxisRaw("Horizontal") == 0) //If no other input has been recieved run
                 {
                     state = StateMachine.IDLE;
                 }
@@ -115,13 +103,14 @@ public class MovementChar : MonoBehaviour
                 if(grounded)
                 {
                     state = StateMachine.LANDING;
+                    landing = true;
                 }
 
                 break;
 
             case StateMachine.LANDING:
 
-                state = StateMachine.IDLE;
+                Landing(0.125f);
 
                 break;
 
@@ -149,6 +138,7 @@ public class MovementChar : MonoBehaviour
         animator.SetFloat("speed", Mathf.Abs(horizontalMove));
         animator.SetFloat("velocityY", rigidbody2D.velocity.y);
         animator.SetBool("isGrounded", grounded);
+        animator.SetBool("landing", landing);
 
         //Increse frame 
 
@@ -188,7 +178,19 @@ public class MovementChar : MonoBehaviour
     void Run()
     {
         rigidbody2D.transform.Translate(Input.GetAxis("Horizontal") * runSpeed * Time.deltaTime, 0, 0);
+    }
 
+    void Landing(float duration)
+    {
+        landingTimer += Time.deltaTime;
+        
+
+        if(landingTimer >= duration)
+        {
+            state = StateMachine.IDLE;
+            landingTimer = 0f;
+            landing = false;
+        }
     }
 
     void Flip()

@@ -341,7 +341,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f817da5166ee6bb4a83944ea244e8ab1, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -411,9 +411,8 @@ MonoBehaviour:
   jumpVelocity: 10
   crouchSpeed: 0.36
   movementSmoothing: 0.05
-  airControl: 0
   standingCollider: {fileID: 0}
-  runSpeed: 25
+  runSpeed: 15
 --- !u!1 &910322957
 GameObject:
   m_ObjectHideFlags: 0

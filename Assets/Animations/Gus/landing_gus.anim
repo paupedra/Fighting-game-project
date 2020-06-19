@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: falling_gus
+  m_Name: landing_gus
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 2555809923192616820, guid: bd00eea19c525194a8c975927bbd30cd,
+      value: {fileID: -6514220226495810313, guid: bd00eea19c525194a8c975927bbd30cd,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -41,7 +41,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 2555809923192616820, guid: bd00eea19c525194a8c975927bbd30cd, type: 3}
+    - {fileID: -6514220226495810313, guid: bd00eea19c525194a8c975927bbd30cd, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
