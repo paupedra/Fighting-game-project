@@ -12,6 +12,7 @@ public class ButtonController : MonoBehaviour
     public Canvas CharSelectLocal;
     public Canvas CharSelectOnline;
     public Canvas CharselectIA;
+    public Canvas MapSelection;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +45,7 @@ public class ButtonController : MonoBehaviour
         PlayMenu.enabled = false;
         Options.enabled = false;
         CharSelectLocal.enabled = false;
+        MapSelection.enabled = false;
 
         MainMenu.enabled = true;
 
@@ -54,6 +56,7 @@ public class ButtonController : MonoBehaviour
         MainMenu.enabled = false;
         PlayMenu.enabled = false;
         CharSelectLocal.enabled = false;
+        MapSelection.enabled = false;
         
         Options.enabled = true;
 
@@ -64,8 +67,29 @@ public class ButtonController : MonoBehaviour
         MainMenu.enabled = false;
         Options.enabled = false;
         CharSelectLocal.enabled = false;
+        MapSelection.enabled = false;
         
         PlayMenu.enabled = true;
+
+    }
+    public void PlayerCharSelectToMap(){
+
+        MainMenu.enabled = false;
+        Options.enabled = false;
+        CharSelectLocal.enabled = false;
+        PlayMenu.enabled = false;
+
+        MapSelection.enabled = true;
+
+    }
+    public void MapSelectToCharLocal(){
+
+        MapSelection.enabled = false;
+        MainMenu.enabled = false;
+        Options.enabled = false;
+        PlayMenu.enabled = false;
+
+        CharSelectLocal.enabled = true;
 
     }
 
@@ -82,6 +106,7 @@ public class ButtonController : MonoBehaviour
         PlayMenu.enabled = false;
         Options.enabled = false;
         CharSelectLocal.enabled = false;
+        MapSelection.enabled = false;
 
     }
      public void PlayToChoseCharVsLocal(){
@@ -89,6 +114,7 @@ public class ButtonController : MonoBehaviour
         MainMenu.enabled = false;
         PlayMenu.enabled = false;
         Options.enabled = false;
+        MapSelection.enabled = false;
 
         CharSelectLocal.enabled = true;
 
@@ -98,6 +124,8 @@ public class ButtonController : MonoBehaviour
         MainMenu.enabled = false;
         PlayMenu.enabled = false;
         Options.enabled = false;
+        MapSelection.enabled = false;
+
         CharSelectLocal.enabled = false;
 
 
