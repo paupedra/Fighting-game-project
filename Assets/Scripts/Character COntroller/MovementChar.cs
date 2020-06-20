@@ -8,6 +8,9 @@ public class MovementChar : MonoBehaviour
     //Rigidbody
     private Rigidbody2D rigidbody2D;
 
+    //Animator
+    public Animator animator;
+
     //Ground Check
     [SerializeField] private LayerMask groundLayer;                          // A mask determining what is ground to the character
     [SerializeField] private Transform groundCheckPoint;                     // A position marking where to check if the player is grounded.
@@ -20,17 +23,18 @@ public class MovementChar : MonoBehaviour
     float landingTimer = 0f;
     bool landing = false;
 
-    public Animator animator;
-
     //Movement vars
+    bool jumping = false;
     [SerializeField] private float jumpVelocity = 7;                          // Amount of force added when the player jumps.
     [Range(0, 1)] [SerializeField] private float crouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;  // How much to smooth out the movement
-    
+
+    public float runSpeed = 0f;
+    float horizontalMove = 0f;
+
     [SerializeField] private Collider2D standingCollider;                // A collider that will be disabled when crouching
    
     private bool facingRight = true;  // For determining which way the player is currently facing.
-    private bool wasCrouching = false;
 
     private void Awake()
     {
@@ -54,9 +58,6 @@ public class MovementChar : MonoBehaviour
     }
 
     StateMachine state = StateMachine.IDLE;
-
-    public float runSpeed = 0f;
-    float horizontalMove = 0f;
 
     void Update()
     {
@@ -135,8 +136,8 @@ public class MovementChar : MonoBehaviour
     void UpdateAnimations()
     {
         //Brakeys stuff
-        animator.SetFloat("speed", Mathf.Abs(horizontalMove));
-        animator.SetFloat("velocityY", rigidbody2D.velocity.y);
+        animator.SetFloat("xVelocity", Input.GetAxisRaw("Horizontal"));
+        animator.SetFloat("yVelocity", rigidbody2D.velocity.y);
         animator.SetBool("isGrounded", grounded);
         animator.SetBool("landing", landing);
 
@@ -161,6 +162,7 @@ public class MovementChar : MonoBehaviour
             if(colliders[i].gameObject != gameObject) //If it's not the character game object
             {
                 grounded = true;
+                jumping = false;
             }
         }
     }
@@ -168,6 +170,8 @@ public class MovementChar : MonoBehaviour
     void StartJump()
     {
         rigidbody2D.velocity = Vector2.up * jumpVelocity;
+
+        jumping = true;
     }
 
     void Jumping()
@@ -178,6 +182,20 @@ public class MovementChar : MonoBehaviour
     void Run()
     {
         rigidbody2D.transform.Translate(Input.GetAxis("Horizontal") * runSpeed * Time.deltaTime, 0, 0);
+
+        if(!jumping)
+        {
+            if(facingRight && Input.GetAxisRaw("Horizontal") < 0)
+            {
+                Flip();
+                facingRight = false;
+            }
+            else if(!facingRight && Input.GetAxisRaw("Horizontal") > 0)
+            {
+                Flip();
+                facingRight = true;
+            }
+        }
     }
 
     void Landing(float duration)
