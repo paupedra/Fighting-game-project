@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5624abf6f2b01854ba4c87ecbe577a95, type: 3}
+  m_Name: Gus
+  m_EditorClassIdentifier: 
+  name: Gus
+  spriteBase: {fileID: 4837726852381486363, guid: 55ff19b61163ae345ae69933a7c1c9d9,
+    type: 3}
+  playerNumber: 1
