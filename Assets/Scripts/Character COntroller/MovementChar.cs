@@ -10,6 +10,7 @@ public class MovementChar : MonoBehaviour
 
     //Animator
     public Animator animator;
+   
 
     //Ground Check
     [SerializeField] private LayerMask groundLayer;                          // A mask determining what is ground to the character
@@ -30,7 +31,9 @@ public class MovementChar : MonoBehaviour
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;  // How much to smooth out the movement
 
     public float runSpeed = 0f;
-    float horizontalMove = 0f;
+
+    //Attack vars
+    bool basicAttack = false;
 
     [SerializeField] private Collider2D standingCollider;                // A collider that will be disabled when crouching
    
@@ -53,7 +56,7 @@ public class MovementChar : MonoBehaviour
         JUMPING,
         LANDING,
         CROUCHING,
-        PUNCHING,
+        BASIC_ATTACK,
         HURT
     }
 
@@ -71,10 +74,22 @@ public class MovementChar : MonoBehaviour
                 {
                     state = StateMachine.JUMPING;
                     StartJump();
+
+                    break;
                 }
-                else if (Input.GetAxisRaw("Horizontal") != 0) //If no other input has been recieved run
+
+                if (Input.GetAxisRaw("Horizontal") != 0) //If no other input has been recieved run
                 {
-                   state = StateMachine.RUNNING;
+                    state = StateMachine.RUNNING;
+                    break;
+                }
+
+                if( Input.GetButtonDown("Punch") )
+                {
+                    state = StateMachine.BASIC_ATTACK;
+                    basicAttack = true;
+
+                    break;
                 }
 
                 break;
@@ -87,10 +102,13 @@ public class MovementChar : MonoBehaviour
                 {
                     state = StateMachine.JUMPING;
                     StartJump();
+                    break;
                 }
-                else if (Input.GetAxisRaw("Horizontal") == 0) //If no other input has been recieved run
+
+                if (Input.GetAxisRaw("Horizontal") == 0) //If no other input has been recieved run
                 {
                     state = StateMachine.IDLE;
+                    break;
                 }
 
                 break;
@@ -116,9 +134,12 @@ public class MovementChar : MonoBehaviour
                 break;
 
             case StateMachine.CROUCHING:
+
                 break;
 
-            case StateMachine.PUNCHING:
+            case StateMachine.BASIC_ATTACK:
+
+
                 break;
 
             case StateMachine.HURT:
@@ -140,6 +161,7 @@ public class MovementChar : MonoBehaviour
         animator.SetFloat("yVelocity", rigidbody2D.velocity.y);
         animator.SetBool("isGrounded", grounded);
         animator.SetBool("landing", landing);
+        animator.SetBool("basicAttack", basicAttack);
 
         //Increse frame 
 
@@ -176,7 +198,8 @@ public class MovementChar : MonoBehaviour
 
     void Jumping()
     {
-
+        state = StateMachine.IDLE;
+        basicAttack = false;
     }
 
     void Run()
@@ -209,6 +232,12 @@ public class MovementChar : MonoBehaviour
             landingTimer = 0f;
             landing = false;
         }
+    }
+
+    public void finishAttack()
+    {
+        basicAttack = false;
+        state = StateMachine.IDLE;
     }
 
     void Flip()

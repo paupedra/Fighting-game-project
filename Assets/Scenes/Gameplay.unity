@@ -132,9 +132,11 @@ GameObject:
   - component: {fileID: 71228643}
   - component: {fileID: 71228644}
   - component: {fileID: 71228645}
+  - component: {fileID: 71228646}
+  - component: {fileID: 71228647}
   m_Layer: 8
-  m_Name: Grafico
-  m_TagString: Untagged
+  m_Name: Graphic
+  m_TagString: Graphic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,6 +225,45 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &71228646
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71228642}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.608292, y: -1.3569975}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.375, y: 8.375}
+    newSize: {x: 1.34, y: 1.34}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.4444187, y: 3.1480427}
+  m_EdgeRadius: 0
+--- !u!114 &71228647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71228642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9156d0c3164bfe749aa76dac2af66138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +361,7 @@ GameObject:
   - component: {fileID: 570153854}
   m_Layer: 8
   m_Name: Gus
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -401,18 +442,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b01580f0da20cd4ca19fd4347fd410d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 71228645}
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
   groundCheckPoint: {fileID: 2140644357}
   ceilingCheckPoint: {fileID: 910322958}
   grounded: 0
-  animator: {fileID: 71228645}
   jumpVelocity: 10
   crouchSpeed: 0.36
   movementSmoothing: 0.05
-  standingCollider: {fileID: 0}
   runSpeed: 15
+  standingCollider: {fileID: 0}
 --- !u!1 &910322957
 GameObject:
   m_ObjectHideFlags: 0
