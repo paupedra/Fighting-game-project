@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MovementGeneral : MonoBehaviour
 {
+
+    Animator anim;
     Rigidbody2D rigidbody2D;
     public float jumpForce;
     public float speed;
@@ -13,6 +15,7 @@ public class MovementGeneral : MonoBehaviour
 
 
     private bool isGrounded;
+    private float speedInicio;
     public Transform groundCheck;
     public float checkRadius;
     public LayerMask ground;
@@ -20,6 +23,9 @@ public class MovementGeneral : MonoBehaviour
     private float jumpTimerCounter;
     public float jumpTime;
     private bool isJumping;
+    
+    //PUDER LA NECESITO
+    public bool canFlip = true;
 
 
 
@@ -28,6 +34,8 @@ public class MovementGeneral : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        speedInicio = speed;
+        anim = GetComponentInChildren<Animator>();
         extraJumps = extraJumpsValue;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,ground);
         rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
@@ -40,7 +48,6 @@ public class MovementGeneral : MonoBehaviour
         moveInput = Input.GetAxisRaw("Horizontal");
         transform.Translate(speed*Time.deltaTime*moveInput,0,0);
         
-        
         if(facinRight == false && moveInput > 0){
             Flip();
         }else if(facinRight == true && moveInput < 0){
@@ -48,6 +55,11 @@ public class MovementGeneral : MonoBehaviour
         }
 
         Jump();
+
+        AnimWalk();
+
+        AttackLateral();
+
     }
 
    
@@ -87,11 +99,48 @@ public class MovementGeneral : MonoBehaviour
     }
 
     void Flip(){
-
-        facinRight =! facinRight;
-        Vector3 Scaler = transform.localScale;
-        Scaler.x *= -1;
-        transform.localScale = Scaler;
+  
+    facinRight =! facinRight;
+    Vector3 Scaler = transform.localScale;
+    Scaler.x *= -1;
+    transform.localScale = Scaler;
 
     }
+
+    void AnimWalk(){
+
+        if(Input.GetButton("Horizontal")||Input.GetButton("Vertical")){
+
+            anim.SetBool("Walk",true);
+
+        }
+        if(Input.GetButtonUp("Horizontal")||Input.GetButtonUp("Vertical")){
+
+            anim.SetBool("Walk",false);
+
+        }
+        if(isGrounded == true){
+
+            anim.SetBool("IsGrounded",true);
+
+        }
+        if(isGrounded == false){
+
+            anim.SetBool("IsGrounded",false);
+
+        }
+
+    }
+
+    void AttackLateral(){
+
+
+        if(Input.GetButtonDown("Attack")){
+
+            anim.SetBool("Attack",true);
+            //speed = 0;
+        } 
+
+    }
+    
 }
