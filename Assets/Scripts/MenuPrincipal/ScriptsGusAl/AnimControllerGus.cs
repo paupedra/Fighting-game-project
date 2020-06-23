@@ -17,6 +17,7 @@ public class AnimControllerGus : MonoBehaviour
         speedInicio = MG.speed;
     }
 
+
      public void InicioAttack(){
         
         MG.speed = 0;
@@ -30,6 +31,27 @@ public class AnimControllerGus : MonoBehaviour
         anim.SetBool("Attack",false);
         MG.canFlip = true;
     
+    }
+    public void CanFlip(){
+
+        MG.canFlip = true;
+        MG.speed = speedInicio;
+
+    }
+
+    public void FinalAttackLateral(){
+
+        MG.speed = speedInicio;
+        anim.SetBool("AttackLateral",false);
+        MG.canFlip = true;
+
+    }
+
+    public void FinalAttackAir(){
+
+        MG.canFlip = true;
+        anim.SetBool("AirAttack",false);
+
     }
 
 }
