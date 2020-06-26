@@ -8,8 +8,6 @@ public class MG : MonoBehaviour
 
 
     // HAY DOS FLIPS DIFERENTES, YA VEREMOS CUAL MOLA MAS
-
-    //Animator anim; // SEGUR K NO EL FEM SERVIR AQUI
     Rigidbody2D rigidbody2D;
 
     //------------- PUBLIC --------------
@@ -33,7 +31,7 @@ public class MG : MonoBehaviour
     private float jumpTimerCounter;
     private float moveInput;
     private bool isJumping;
-    private  bool facinRight;
+    private  bool facinRight = true;
     
     
     
@@ -41,9 +39,7 @@ public class MG : MonoBehaviour
     void Start()
     {
         canFlip = true;
-        facinRight = true;
         speedInicio = speed;
-        //anim = GetComponentInChildren<Animator>();    // LO LLEVARA EL CHILDREN GRAPHIC O COMO SE LLAME EL QUE LLEVA LOS SPRITES
         extraJumps = extraJumpsValue;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,ground);
         rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
@@ -59,19 +55,16 @@ public class MG : MonoBehaviour
         transform.Translate(speed*Time.deltaTime*moveInput,0,0); // EL MOVIMIENTO ESKEREEEE
 
        
-       //DONDE CHEKA SI TIENE K FLIPEAR O NO ( DESCOMENTAD ESTO Y BORRAD FLIP2 SI PREFERIS LA OTRA MANERA)
-
-
-        /*if(facinRight == false && moveInput > 0){
-            Flip();
-        }else if(facinRight == true && moveInput < 0){
-            Flip();
-        }*/
+       //PUEDES USAR EL CAN FLIP 2 SI KIERES
 
 
         if(canFlip == true){
             
-            Flip2();
+            if(facinRight == false && moveInput > 0){
+            Flip();
+        }else if(facinRight == true && moveInput < 0){
+            Flip();
+        }
 
         }
         
@@ -112,8 +105,7 @@ public class MG : MonoBehaviour
         }else if (Input.GetKeyDown(KeyCode.Space)&& extraJumps == 0&& isGrounded == true){
             rigidbody2D.velocity = Vector2.up * jumpForce;
         }
-                                                            // SI QUEREMOS QUE EL SEGUNDO JUMP NO VARIE AL PULSAR MAS
-        if(Input.GetKey(KeyCode.Space)&& isJumping == true/*&& extraJumps>0*/){
+        if(Input.GetKey(KeyCode.Space)&& isJumping == true/*&& extraJumps>0*/){ // SI QUEREMOS QUE EL SEGUNDO JUMP NO VARIE AL PULSAR MAS
 
             if(jumpTimerCounter > 0){
                  rigidbody2D.velocity = Vector2.up * jumpForce;
@@ -133,7 +125,7 @@ public class MG : MonoBehaviour
 
 
    
-// SI PREFERIS ESTE FLIP BORRAD EL PARRAFO DONDE CHEKA EL FLIP EN UPDATE Y LLAMAD ESTA VOID
+// PODEMOS UTILIZARLO EN VEZ DEL OTRO
     void Flip2(){
 
     Vector3 characterScale = transform.localScale;

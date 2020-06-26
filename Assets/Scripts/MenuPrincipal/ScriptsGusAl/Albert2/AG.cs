@@ -16,8 +16,8 @@ public class AG : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Walk();
         Jump();
+        Walk();
     }
 
     void Walk(){
