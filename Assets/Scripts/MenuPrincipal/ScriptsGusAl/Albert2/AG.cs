@@ -19,11 +19,11 @@ public class AG : MonoBehaviour
     void Update()
     {
         Jump();
+        Attack();
         
         if(mg.isGrounded == true){
 
             Walk();
-            Attack();
 
         }
         
