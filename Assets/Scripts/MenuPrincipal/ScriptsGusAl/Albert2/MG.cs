@@ -6,7 +6,10 @@ public class MG : MonoBehaviour
 {
     // NO VARIAR SCRIPT!! SI ESO LLAMARLO DESDE OTROS SCRIPTS PARA HACER EL ANIMATOR!!!!
 
-    Animator anim;
+
+    // HAY DOS FLIPS DIFERENTES, YA VEREMOS CUAL MOLA MAS
+
+    //Animator anim; // SEGUR K NO EL FEM SERVIR AQUI
     Rigidbody2D rigidbody2D;
 
     //------------- PUBLIC --------------
@@ -18,6 +21,10 @@ public class MG : MonoBehaviour
     public float jumpForce;               // FUERZA DE SALTO
     public float speed;                   // VELOCIDAD DE MOVIMIENTO
     public float checkRadius;             // RADIO PARA MIRAR LOS PIES SI TOCAN EL SUELO
+    public bool isGrounded;           
+
+
+    public bool canFlip;                  //SE UTILIZARA CUANDO LLAMEMOS EN OTROS SCRIPTS PARA ATACAR Y FREZEEAR LA ROTACION
     
 
     //---------- PRIVATE -------------
@@ -26,7 +33,6 @@ public class MG : MonoBehaviour
     private float jumpTimerCounter;
     private float moveInput;
     private bool isJumping;
-    private bool isGrounded;
     private  bool facinRight;
     
     
@@ -34,9 +40,10 @@ public class MG : MonoBehaviour
     
     void Start()
     {
+        canFlip = true;
         facinRight = true;
         speedInicio = speed;
-        anim = GetComponentInChildren<Animator>();    // LO LLEVARA EL CHILDREN GRAPHIC O COMO SE LLAME EL QUE LLEVA LOS SPRITES
+        //anim = GetComponentInChildren<Animator>();    // LO LLEVARA EL CHILDREN GRAPHIC O COMO SE LLAME EL QUE LLEVA LOS SPRITES
         extraJumps = extraJumpsValue;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,ground);
         rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
@@ -52,11 +59,20 @@ public class MG : MonoBehaviour
         transform.Translate(speed*Time.deltaTime*moveInput,0,0); // EL MOVIMIENTO ESKEREEEE
 
        
-       //DONDE CHEKA SI TIENE K FLIPEAR O NO
-        if(facinRight == false && moveInput > 0){
+       //DONDE CHEKA SI TIENE K FLIPEAR O NO ( DESCOMENTAD ESTO Y BORRAD FLIP2 SI PREFERIS LA OTRA MANERA)
+
+
+        /*if(facinRight == false && moveInput > 0){
             Flip();
         }else if(facinRight == true && moveInput < 0){
             Flip();
+        }*/
+
+
+        if(canFlip == true){
+            
+            Flip2();
+
         }
         
         Jump();
@@ -111,6 +127,25 @@ public class MG : MonoBehaviour
             isJumping = false;
 
         }
+
+    }
+
+
+
+   
+// SI PREFERIS ESTE FLIP BORRAD EL PARRAFO DONDE CHEKA EL FLIP EN UPDATE Y LLAMAD ESTA VOID
+    void Flip2(){
+
+    Vector3 characterScale = transform.localScale;
+    if(Input.GetAxis("Horizontal") < 0){
+
+        characterScale.x = -1;
+    }
+    if(Input.GetAxis("Horizontal") > 0){
+
+        characterScale.x = 1;
+    }
+    transform.localScale = characterScale;
 
     }
 

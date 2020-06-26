@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovementGeneral : MonoBehaviour
 {
 
-    Animator anim;
+    Animator anim; 
     Rigidbody2D rigidbody2D;
     public float jumpForce;
     public float speed;
@@ -36,7 +36,7 @@ public class MovementGeneral : MonoBehaviour
     {
         canFlip = true;
         speedInicio = speed;
-        anim = GetComponentInChildren<Animator>();
+        //anim = GetComponentInChildren<Animator>();
         extraJumps = extraJumpsValue;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,ground);
         rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
