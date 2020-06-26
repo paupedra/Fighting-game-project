@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Graphic
+  - borde
   layers:
   - Default
   - TransparentFX
