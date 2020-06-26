@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class agarre : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Rigidbody2D rg; 
+
     void Start()
     {
         
