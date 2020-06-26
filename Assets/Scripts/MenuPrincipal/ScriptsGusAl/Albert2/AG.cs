@@ -6,23 +6,32 @@ public class AG : MonoBehaviour
 {
     Animator anim;
     MG mg;
+    private float speed;
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
         mg = GetComponentInParent<MG>();
+        anim = GetComponent<Animator>();
+        speed = mg.speed;
     }
 
     // Update is called once per frame
     void Update()
     {
         Jump();
-        Walk();
+        
+        if(mg.isGrounded == true){
+
+            Walk();
+            Attack();
+
+        }
+        
     }
 
     void Walk(){
 
-        if(Input.GetButton("Horizontal")){
+         if(Input.GetButton("Horizontal")){
 
             anim.SetBool("Walk",true);
 
@@ -46,6 +55,40 @@ public class AG : MonoBehaviour
             anim.SetBool("IsGrounded",false);
 
         }
+
+
+    }
+    void Attack(){
+
+        if(Input.GetButtonDown("Attack")){
+
+
+            anim.SetBool("Attack",true);
+
+        }
+        if(Input.GetButtonUp("Attack")){
+
+
+            anim.SetBool("Attack",false);
+
+        }
+
+    }
+
+
+
+
+    public void SpeedZero(){
+
+        mg.speed = 0;
+        mg.canFlip = false;
+
+
+    }
+    public void SpeedFull(){
+
+        mg.speed = speed;
+        mg.canFlip = true;
 
     }
 }
