@@ -22,7 +22,9 @@ public class MG : MonoBehaviour
     public bool isGrounded;           
 
 
-    public bool canFlip;                  //SE UTILIZARA CUANDO LLAMEMOS EN OTROS SCRIPTS PARA ATACAR Y FREZEEAR LA ROTACION
+    public bool canFlip;                  // SE UTILIZARA CUANDO LLAMEMOS EN OTROS SCRIPTS PARA ATACAR Y FREZEEAR LA ROTACION
+
+    public bool canJump;                  // ES LLAMADO EN EL OTRO SCRIPT PARA HACER QUE NO SALTE
     
 
     //---------- PRIVATE -------------
@@ -48,6 +50,7 @@ public class MG : MonoBehaviour
 
     void Update()
     {
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,ground); //CHEKA SI TOCA EL SUELO TODO EL RATO
         
         moveInput = Input.GetAxisRaw("Horizontal");
@@ -68,8 +71,10 @@ public class MG : MonoBehaviour
 
         }
         
-        Jump();
-        
+        if(canJump == true){
+            Jump();
+        }
+          
     }
 
 

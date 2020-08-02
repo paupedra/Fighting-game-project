@@ -7,18 +7,20 @@ public class AnimatorGus : MonoBehaviour
     Animator anim;
     MG mg;
     private float speed;
+    private float roundUpV;
+
     // Start is called before the first frame update
     void Start()
     {
         mg = GetComponentInParent<MG>();
         anim = GetComponent<Animator>();
         speed = mg.speed;
+        anim.SetBool("BasicAttack",true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         Jump();
         Walk();
         Attack();
@@ -43,11 +45,13 @@ public class AnimatorGus : MonoBehaviour
          if(Input.GetButton("Horizontal")){
 
             anim.SetBool("Walk",true);
+            anim.SetBool("BasicAttack",false);
 
         }
         if(Input.GetButtonUp("Horizontal")){
 
             anim.SetBool("Walk",false);
+            anim.SetBool("BasicAttack",true);
 
         }
     }
@@ -70,10 +74,28 @@ public class AnimatorGus : MonoBehaviour
 
     void Vertical(){
 
-        if(Input.GetButtonDown("Vertical")){
+        if(Input.GetKeyDown(KeyCode.W)){
+
+            roundUpV = 1;
+
+        }
+
+        if(Input.GetKeyDown(KeyCode.S)){
+
+            roundUpV = -1;
+
+        }
+        
+        if(Input.GetButton("Vertical")){
 
             anim.SetBool("BasicAttack",false);
-            anim.SetFloat("Vertical",Input.GetAxis("Vertical"));
+
+        }
+        
+        if(Input.GetButtonDown("Vertical")){
+        
+            anim.SetBool("BasicAttack",false);
+            anim.SetFloat("Vertical",roundUpV);
 
         }
          if(Input.GetButtonUp("Vertical")){
@@ -89,6 +111,7 @@ public class AnimatorGus : MonoBehaviour
 
         mg.speed = 0;
         mg.canFlip = false;
+        mg.canJump = false;
 
 
     }
@@ -96,6 +119,7 @@ public class AnimatorGus : MonoBehaviour
 
         mg.speed = speed;
         mg.canFlip = true;
+        mg.canJump = true;
 
     }
 
