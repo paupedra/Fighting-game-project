@@ -8,6 +8,7 @@ public class AnimatorGus : MonoBehaviour
     MG mg;
     private float speed;
     private float roundUpV;
+    private bool canWalk;
 
     // Start is called before the first frame update
     void Start()
@@ -16,13 +17,17 @@ public class AnimatorGus : MonoBehaviour
         anim = GetComponent<Animator>();
         speed = mg.speed;
         anim.SetBool("BasicAttack",true);
+        canWalk = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         Jump();
+        
+        if(canWalk == true)
         Walk();
+
         Attack();
         Vertical();
     }
@@ -46,6 +51,7 @@ public class AnimatorGus : MonoBehaviour
 
             anim.SetBool("Walk",true);
             anim.SetBool("BasicAttack",false);
+            
 
         }
         if(Input.GetButtonUp("Horizontal")){
@@ -79,14 +85,29 @@ public class AnimatorGus : MonoBehaviour
             roundUpV = 1;
 
         }
-
+        
         if(Input.GetKeyDown(KeyCode.S)){
 
+            if(mg.isGrounded == true){
+
+                anim.SetBool("Crouch",true);
+
+                //anim.SetBool("Walk",false);
+
+            }
+            
             roundUpV = -1;
 
         }
         
         if(Input.GetButton("Vertical")){
+
+            if(mg.isGrounded == true){
+
+               // canWalk = false;
+                anim.SetBool("Walk",false);
+
+            }
 
             anim.SetBool("BasicAttack",false);
 
@@ -102,6 +123,9 @@ public class AnimatorGus : MonoBehaviour
 
             anim.SetBool("BasicAttack",true);
             anim.SetFloat("Vertical",0f);
+            anim.SetBool("Crouch",false);
+            
+            //canWalk = true;
 
         }
 
@@ -109,6 +133,8 @@ public class AnimatorGus : MonoBehaviour
 
     public void SpeedZero(){
 
+        anim.SetBool("Walk",false);
+        canWalk = false;
         mg.speed = 0;
         mg.canFlip = false;
         mg.canJump = false;
@@ -117,6 +143,7 @@ public class AnimatorGus : MonoBehaviour
     }
     public void SpeedFull(){
 
+        canWalk = true;
         mg.speed = speed;
         mg.canFlip = true;
         mg.canJump = true;
