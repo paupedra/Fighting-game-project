@@ -250,6 +250,10 @@ MonoBehaviour:
   speed: 10
   checkRadius: 0.5
   isGrounded: 0
+  maxDashTime: 0.1
+  dashSpeed: 50
+  dashStoppingSpeed: 1
+  currentDashTime: 0
   canFlip: 0
   canJump: 0
 --- !u!1 &519420028

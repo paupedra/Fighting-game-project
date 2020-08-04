@@ -19,7 +19,14 @@ public class MG : MonoBehaviour
     public float jumpForce;               // FUERZA DE SALTO
     public float speed;                   // VELOCIDAD DE MOVIMIENTO
     public float checkRadius;             // RADIO PARA MIRAR LOS PIES SI TOCAN EL SUELO
-    public bool isGrounded;           
+    public bool isGrounded;  
+    
+    //DASH---------- 
+    public float maxDashTime = 5f;
+    public float dashSpeed = 15f;
+    public float dashStoppingSpeed = 0.1f;
+    public float currentDashTime; 
+        
 
 
     public bool canFlip;                  // SE UTILIZARA CUANDO LLAMEMOS EN OTROS SCRIPTS PARA ATACAR Y FREZEEAR LA ROTACION
@@ -35,11 +42,15 @@ public class MG : MonoBehaviour
     private bool isJumping;
     private  bool facinRight = true;
     
+   
+    
     
     
     
     void Start()
     {
+        currentDashTime = maxDashTime;
+
         canFlip = true;
         speedInicio = speed;
         extraJumps = extraJumpsValue;
@@ -50,6 +61,8 @@ public class MG : MonoBehaviour
 
     void Update()
     {
+
+        Dash();
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,ground); //CHEKA SI TOCA EL SUELO TODO EL RATO
         
@@ -146,5 +159,46 @@ public class MG : MonoBehaviour
 
     }
 
+    //DASHING AMB EL FERRARI
+    void Dash(){
+
+        if(isGrounded == true){
+
+
+            if(Input.GetKeyDown(KeyCode.Mouse1)){
+               
+            currentDashTime = 0f;
+
+        }
+        if (currentDashTime < maxDashTime)
+        {
+            speed = dashSpeed;
+            currentDashTime += dashStoppingSpeed*Time.deltaTime;
+            
+            if (currentDashTime >= maxDashTime){
+
+                speed = speedInicio;
+
+            }
+        }
+
+        /*if(Input.GetKeyUp(KeyCode.Mouse1)){
+
+            speed = speedInicio;
+
+        }*/
+
+            
+
+        }
+        
+        if(isGrounded == false){
+
+            speed = speedInicio;
+
+        }
+        
+    }
+    
 
 }

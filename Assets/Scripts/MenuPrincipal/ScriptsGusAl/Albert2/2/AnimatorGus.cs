@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class AnimatorGus : MonoBehaviour
 {
+
+    // COSES A FER ---------- Recovery:(Estar en el aire + LMB + W)---------------------
+    // COSES A FER ---------- Dash: (RMB)-----------------------------------------------
+
+
     Animator anim;
     MG mg;
     private float speed;
@@ -24,6 +29,7 @@ public class AnimatorGus : MonoBehaviour
     void Update()
     {
         Jump();
+        Dash();
         
         if(canWalk == true)
         Walk();
@@ -131,6 +137,20 @@ public class AnimatorGus : MonoBehaviour
 
     }
 
+    void Dash(){
+        
+        if(Input.GetButton("Horizontal")){
+
+            if(Input.GetKeyDown(KeyCode.Mouse1)){
+
+                anim.SetBool("Dash",true);
+
+            }
+
+        }
+
+    }
+
     public void SpeedZero(){
 
         anim.SetBool("Walk",false);
@@ -147,6 +167,12 @@ public class AnimatorGus : MonoBehaviour
         mg.speed = speed;
         mg.canFlip = true;
         mg.canJump = true;
+
+    }
+
+    public void FinalDash(){
+
+        anim.SetBool("Dash",false);
 
     }
 
