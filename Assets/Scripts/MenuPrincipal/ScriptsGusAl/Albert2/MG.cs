@@ -26,12 +26,16 @@ public class MG : MonoBehaviour
     public float dashSpeed = 15f;
     public float dashStoppingSpeed = 0.1f;
     public float currentDashTime; 
+    public float cdDash = 2f;              // TIEMPO DE ESPERA ENTRE DASHES
+    public float cdTimer;
         
 
 
     public bool canFlip;                  // SE UTILIZARA CUANDO LLAMEMOS EN OTROS SCRIPTS PARA ATACAR Y FREZEEAR LA ROTACION
 
     public bool canJump;                  // ES LLAMADO EN EL OTRO SCRIPT PARA HACER QUE NO SALTE
+
+    public bool canDash;                  // BOOL K DIRA SI POT DASHEAR O NO
     
 
     //---------- PRIVATE -------------
@@ -49,6 +53,8 @@ public class MG : MonoBehaviour
     
     void Start()
     {
+        canDash = true;
+
         currentDashTime = maxDashTime;
 
         canFlip = true;
@@ -62,7 +68,23 @@ public class MG : MonoBehaviour
     void Update()
     {
 
+        //---------------------- COOLDOWN DASH --------------------------
+        if(canDash == true)
         Dash();
+        
+        if(canDash == false){
+
+            cdTimer += 1*Time.deltaTime;
+
+            if(cdTimer >= cdDash){
+
+                cdTimer = 0;
+                canDash = true;
+
+            }
+
+        }
+        //---------------------- FIN COOLDOWN DASH --------------------------
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius,ground); //CHEKA SI TOCA EL SUELO TODO EL RATO
         
@@ -164,32 +186,23 @@ public class MG : MonoBehaviour
 
         if(isGrounded == true){
 
-
             if(Input.GetKeyDown(KeyCode.Mouse1)){
                
-            currentDashTime = 0f;
-
-        }
-        if (currentDashTime < maxDashTime)
-        {
-            speed = dashSpeed;
-            currentDashTime += dashStoppingSpeed*Time.deltaTime;
-            
-            if (currentDashTime >= maxDashTime){
-
-                speed = speedInicio;
+                currentDashTime = 0f;
 
             }
-        }
-
-        /*if(Input.GetKeyUp(KeyCode.Mouse1)){
-
-            speed = speedInicio;
-
-        }*/
-
+            if (currentDashTime < maxDashTime)
+            {
+                speed = dashSpeed;
+                currentDashTime += dashStoppingSpeed*Time.deltaTime;
             
+                if (currentDashTime >= maxDashTime){
 
+                    speed = speedInicio;
+                    canDash = false;
+
+                }
+            }    
         }
         
         if(isGrounded == false){
@@ -200,5 +213,4 @@ public class MG : MonoBehaviour
         
     }
     
-
 }

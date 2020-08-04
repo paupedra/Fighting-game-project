@@ -6,7 +6,6 @@ public class AnimatorGus : MonoBehaviour
 {
 
     // COSES A FER ---------- Recovery:(Estar en el aire + LMB + W)---------------------
-    // COSES A FER ---------- Dash: (RMB)-----------------------------------------------
 
 
     Animator anim;
@@ -139,11 +138,15 @@ public class AnimatorGus : MonoBehaviour
 
     void Dash(){
         
-        if(Input.GetButton("Horizontal")){
+        if(mg.canDash == true){
+
+            if(Input.GetButton("Horizontal")){
 
             if(Input.GetKeyDown(KeyCode.Mouse1)){
 
                 anim.SetBool("Dash",true);
+
+            }
 
             }
 
@@ -161,8 +164,19 @@ public class AnimatorGus : MonoBehaviour
 
 
     }
+
     public void SpeedFull(){
 
+        canWalk = true;
+        mg.speed = speed;
+        mg.canFlip = true;
+        mg.canJump = true;
+
+    }
+
+    public void SpeedFullEnIdle(){
+
+        anim.SetBool("BasicAttack",true);
         canWalk = true;
         mg.speed = speed;
         mg.canFlip = true;
