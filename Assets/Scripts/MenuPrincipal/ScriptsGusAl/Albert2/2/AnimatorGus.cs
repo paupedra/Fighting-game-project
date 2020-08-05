@@ -5,7 +5,9 @@ using UnityEngine;
 public class AnimatorGus : MonoBehaviour
 {
 
-    // COSES A FER ---------- Recovery:(Estar en el aire + LMB + W)---------------------
+    // COSES A FER ---------- Recovery:(Estar en el aire + LMB + W)--------------------- FETTTTTTT
+
+    // ORGANITZAR UNA MICA MILLOR ELS SCIRPTS!!!!
 
 
     Animator anim;
@@ -29,6 +31,7 @@ public class AnimatorGus : MonoBehaviour
     {
         Jump();
         Dash();
+        Recovery();
         
         if(canWalk == true)
         Walk();
@@ -154,6 +157,50 @@ public class AnimatorGus : MonoBehaviour
 
     }
 
+
+    // CADA VEZ QUE TOCA EL SUELO PUEDE VOLVER A UTILIZARLO
+
+    //----------------- FALTA HACER QUE PASE LO MIsMO cADA VEZ K ES HITEADO-----------
+    void Recovery(){
+
+        if(Input.GetKeyDown(KeyCode.Mouse1)){
+
+            if(mg.canRecovery == true){
+
+                anim.SetBool("Recovery",true);
+
+            } 
+
+        }
+        if(mg.isGrounded == true){
+
+            mg.canRecovery = true;
+
+        }
+
+        if(mg.canRecovery == false){
+
+                anim.SetBool("Recovery",false);
+
+            } 
+
+        /*// TIMER RECOVERY PER TORNAR A FERHO EN UNS SEGS
+         if(mg.canRecovery == false){
+
+                anim.SetBool("Recovery",false);
+                mg.recTimer += 1*Time.deltaTime;
+
+            if(mg.recTimer >= mg.cdRec){
+
+                mg.recTimer = 0;
+                mg.canRecovery = true;
+
+            }
+
+            }*/
+
+    }
+
     public void SpeedZero(){
 
         anim.SetBool("Walk",false);
@@ -162,6 +209,14 @@ public class AnimatorGus : MonoBehaviour
         mg.canFlip = false;
         mg.canJump = false;
 
+
+    }
+
+    // FINAL DE TOTS BASICOS LATERAL ( PENULTIM FRAME)
+    public void CanBasickAttack(){
+
+        anim.SetBool("BasicAttack",true);
+        canWalk = true;
 
     }
 
@@ -176,7 +231,10 @@ public class AnimatorGus : MonoBehaviour
 
     public void SpeedFullEnIdle(){
 
+        if(Input.GetAxis("Vertical") == 0)
         anim.SetBool("BasicAttack",true);
+
+
         canWalk = true;
         mg.speed = speed;
         mg.canFlip = true;
@@ -187,6 +245,20 @@ public class AnimatorGus : MonoBehaviour
     public void FinalDash(){
 
         anim.SetBool("Dash",false);
+
+    }
+
+    // ACTIVA FISICAS RECOVERY EN MG PER DONAR IMPULS DESDE FRAME 1 ANIMACIO
+    public void RecoveryFisics(){
+
+        mg.Recovery();
+
+    }
+
+    public void FinalRecovery(){
+
+        mg.canRecovery = false;
+        //mg.canDash = false;
 
     }
 

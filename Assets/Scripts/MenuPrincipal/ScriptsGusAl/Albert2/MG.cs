@@ -28,6 +28,15 @@ public class MG : MonoBehaviour
     public float currentDashTime; 
     public float cdDash = 2f;              // TIEMPO DE ESPERA ENTRE DASHES
     public float cdTimer;
+
+
+    //RECOVERY-------------------
+
+    public float recoveryForce;            // FUERZA DE SALTO DE RECOVERY
+    public float maxRecTime = 5f;
+    public float currentRecTime; 
+    public float cdRec = 2f;              // TIEMPO DE ESPERA ENTRE RECOVERYS
+    public float recTimer;
         
 
 
@@ -36,6 +45,8 @@ public class MG : MonoBehaviour
     public bool canJump;                  // ES LLAMADO EN EL OTRO SCRIPT PARA HACER QUE NO SALTE
 
     public bool canDash;                  // BOOL K DIRA SI POT DASHEAR O NO
+
+    public bool canRecovery;              // SI PUEDE O NO HACER RECOVERY
     
 
     //---------- PRIVATE -------------
@@ -53,8 +64,10 @@ public class MG : MonoBehaviour
     
     void Start()
     {
+        canRecovery = true;
         canDash = true;
 
+        currentRecTime = maxRecTime;
         currentDashTime = maxDashTime;
 
         canFlip = true;
@@ -211,6 +224,13 @@ public class MG : MonoBehaviour
 
         }
         
+    }
+
+    // LLAMADA DESDE EL SPRITE 1 DE ANIMATION RECOVERY (DESDE SCRIPT ANIMATORGUS) PARA DARLE FISICA DE SALTO
+    public void Recovery(){
+
+        rigidbody2D.velocity = Vector2.up * recoveryForce;
+
     }
     
 }
