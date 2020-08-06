@@ -199,23 +199,27 @@ public class MG : MonoBehaviour
 
         if(isGrounded == true){
 
-            if(Input.GetKeyDown(KeyCode.Mouse1)){
+            if(Input.GetButton("Horizontal")){
+
+                if(Input.GetKeyDown(KeyCode.Mouse1)){
                
                 currentDashTime = 0f;
 
-            }
-            if (currentDashTime < maxDashTime)
-            {
-                speed = dashSpeed;
-                currentDashTime += dashStoppingSpeed*Time.deltaTime;
-            
-                if (currentDashTime >= maxDashTime){
-
-                    speed = speedInicio;
-                    canDash = false;
-
                 }
-            }    
+                if (currentDashTime < maxDashTime)
+                {
+                    speed = dashSpeed;
+                    currentDashTime += dashStoppingSpeed*Time.deltaTime;
+            
+                    if (currentDashTime >= maxDashTime){
+
+                        speed = speedInicio;
+                        canDash = false;
+
+                    }
+                }    
+            }
+
         }
         
         if(isGrounded == false){

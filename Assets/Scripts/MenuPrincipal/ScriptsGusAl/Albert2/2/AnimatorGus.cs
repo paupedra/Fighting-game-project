@@ -113,7 +113,7 @@ public class AnimatorGus : MonoBehaviour
             if(mg.isGrounded == true){
 
                // canWalk = false;
-                anim.SetBool("Walk",false);
+                //anim.SetBool("Walk",false);
 
             }
 
@@ -145,11 +145,26 @@ public class AnimatorGus : MonoBehaviour
 
             if(Input.GetButton("Horizontal")){
 
-            if(Input.GetKeyDown(KeyCode.Mouse1)){
+                if(mg.isGrounded == true){
 
-                anim.SetBool("Dash",true);
+                    if(Input.GetKeyDown(KeyCode.Mouse1)){
+
+                        anim.SetBool("Dash",true);
+
+                    }
+                }
 
             }
+            
+            if(Input.GetKeyUp(KeyCode.Mouse1)){
+
+                anim.SetBool("Dash",false);
+
+            }
+
+            if(mg.isGrounded == false){    //ES LA CLAU MAN!!!!!!
+
+                anim.SetBool("Dash",false);
 
             }
 
@@ -163,15 +178,22 @@ public class AnimatorGus : MonoBehaviour
     //----------------- FALTA HACER QUE PASE LO MIsMO cADA VEZ K ES HITEADO-----------
     void Recovery(){
 
-        if(Input.GetKeyDown(KeyCode.Mouse1)){
+        if(Input.GetAxis("Vertical")> 0){
 
-            if(mg.canRecovery == true){
+            if(Input.GetKeyDown(KeyCode.Mouse1)){
 
-                anim.SetBool("Recovery",true);
+                if(mg.canRecovery == true){
 
-            } 
+                    anim.SetBool("Recovery",true);
+
+                    mg.canJump = false;             // SI FALLA BORRAR!!!!!!!!!!----------------------
+
+                } 
+
+            }
 
         }
+
         if(mg.isGrounded == true){
 
             mg.canRecovery = true;
@@ -258,7 +280,6 @@ public class AnimatorGus : MonoBehaviour
     public void FinalRecovery(){
 
         mg.canRecovery = false;
-        //mg.canDash = false;
 
     }
 
