@@ -18,13 +18,16 @@ public class ButtonController : MonoBehaviour
     {
         PlayMenu.enabled = false;
         Options.enabled = false;
+        MainMenu.enabled = true;
     }
 
     // Update is called once per frame
+    /*
     void Update()
     {
         
     }
+    */
 
    
    //MENU SETTINGS
