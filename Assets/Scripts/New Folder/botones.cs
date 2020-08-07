@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class botones : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class botones : MonoBehaviour
     3 charSelect
     4 mapSelect
     */
+
+    //Voids Pantalla Inicio
     public void InicioToPlay()
     {
         menus[0].enabled = false;
@@ -35,6 +38,71 @@ public class botones : MonoBehaviour
         menus[1].enabled = false;
         menus[2].enabled = true;
         menus[3].enabled = false;
+        menus[4].enabled = false;
+    }
+
+    //Voids MenuPlay
+    public void PlayToCharselect()
+    {
+        menus[0].enabled = false;
+        menus[1].enabled = false;
+        menus[2].enabled = false;
+        menus[3].enabled = true;
+        menus[4].enabled = false;
+    }
+    public void PlayToInicio()
+    {
+        menus[0].enabled = true;
+        menus[1].enabled = false;
+        menus[2].enabled = false;
+        menus[3].enabled = false;
+        menus[4].enabled = false;
+    }
+
+    //Voids Options
+    public void OptionsToInicio()
+    {
+        menus[0].enabled = true;
+        menus[1].enabled = false;
+        menus[2].enabled = false;
+        menus[3].enabled = false;
+        menus[4].enabled = false;
+    }
+
+    //Voids CharSelect
+    public void CharToMap()
+    {
+        menus[0].enabled = false;
+        menus[1].enabled = false;
+        menus[2].enabled = false;
+        menus[3].enabled = false;
+        menus[4].enabled = true;
+    }
+    public void CharToPlay()
+    {
+        menus[0].enabled = false;
+        menus[1].enabled = true;
+        menus[2].enabled = false;
+        menus[3].enabled = false;
+        menus[4].enabled = false;
+    }
+
+    //Voids MapSelect
+    public void MapSelectToGame()
+    {
+        menus[0].enabled = false;
+        menus[1].enabled = false;
+        menus[2].enabled = false;
+        menus[3].enabled = false;
+        menus[4].enabled = false;
+        SceneManager.LoadScene("GamePlay");
+    }
+    public void MapToChar()
+    {
+        menus[0].enabled = false;
+        menus[1].enabled = false;
+        menus[2].enabled = false;
+        menus[3].enabled = true;
         menus[4].enabled = false;
     }
 
